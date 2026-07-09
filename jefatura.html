@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Acceso interno — Escala Central FBI</title>
+<link rel="icon" href="assets/fbi-seal.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav class="tabnav">
+  <div class="wrap inner">
+    <div class="logos">
+      <img src="assets/fbi-seal.png" alt="Sello del FBI">
+      <div class="divider"></div>
+      <img src="assets/hispanlife-logo.png" alt="HispanLife Roleplay">
+    </div>
+    <span class="brand-text">Escala Central<small>Acceso restringido</small></span>
+    <div class="navlinks">
+      <a href="index.html">← Volver al sitio público</a>
+    </div>
+  </div>
+</nav>
+
+<div class="gate" id="gate">
+  <div class="gate-box">
+    <div class="lock">🔒</div>
+    <h2>Acceso restringido</h2>
+    <p>Este apartado es solo para la Escala Central del FBI (Director / SubDirector). Introduce la clave interna para continuar.</p>
+    <input type="password" id="clave" placeholder="Clave de acceso" autocomplete="off">
+    <button class="btn navy" style="width:100%" onclick="verificarClave()">Entrar</button>
+    <div class="gate-error" id="gate-error">Clave incorrecta. Inténtalo de nuevo.</div>
+  </div>
+</div>
+
+<div id="jefatura-content">
+
+<header class="hero">
+  <div class="wrap">
+    <div class="case-no">Solo Escala Central · Director / SubDirector</div>
+    <h1>Panel de Mando</h1>
+    <p class="sub">Coordinación interna de la división · No compartir fuera de la Escala Central</p>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <div class="eyebrow">Comunicados internos</div>
+    <h2>Tablón de Escala Central</h2>
+    <p class="section-intro">Espacio para decisiones y avisos que solo debe conocer la dirección de la división.</p>
+    <div class="grid">
+      <div class="card">
+        <span class="num">NOTA 003</span>
+        <h3>Reemplaza este texto</h3>
+        <p>Edita este bloque con el comunicado interno real (ej. cambios de reglamento, redadas autorizadas, etc.).</p>
+      </div>
+      <div class="card">
+        <span class="num">NOTA 002</span>
+        <h3>Reemplaza este texto</h3>
+        <p>Espacio reservado para el segundo comunicado interno.</p>
+      </div>
+      <div class="card">
+        <span class="num">NOTA 001</span>
+        <h3>Reemplaza este texto</h3>
+        <p>Espacio reservado para el primer comunicado interno de la temporada.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="eyebrow">Estructura</div>
+    <h2>Escala Central activa</h2>
+    <div class="org-list">
+      <div class="org-item"><span class="lvl">DIR.</span><span>Director de Investigación — [nombre]</span></div>
+      <div class="org-item"><span class="lvl">SUBDIR.</span><span>SubDirector de Investigación — [nombre]</span></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="eyebrow">Gestión</div>
+    <h2>Propuesta de ascenso / descenso</h2>
+    <p class="section-intro">Formulario interno para proponer cambios de rango dentro de la división.</p>
+    <form class="form-panel" id="form-propuesta" onsubmit="enviarPropuesta(event)">
+      <div class="field">
+        <label for="agente-prop">Agente</label>
+        <input type="text" id="agente-prop" name="agente" required>
+      </div>
+      <div class="field">
+        <label for="tipo-prop">Tipo de propuesta</label>
+        <select id="tipo-prop" name="tipo">
+          <option>Ascenso</option>
+          <option>Descenso</option>
+          <option>Autorización de redada</option>
+          <option>Otro</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="motivo-prop">Motivo</label>
+        <textarea id="motivo-prop" name="motivo" required></textarea>
+      </div>
+      <button type="submit" class="btn navy">Enviar propuesta</button>
+      <div class="send-status" id="propuesta-status"></div>
+    </form>
+  </div>
+</section>
+
+<footer class="wrap">
+  <span>© 2026 · Escala Central FBI · HispanLife Roleplay</span>
+  <span><a class="restricted" href="index.html">Volver al sitio público</a></span>
+</footer>
+
+</div>
+
+<script src="script.js"></script>
+<script>
+  // Aviso: esto es solo una barrera cosmética en el navegador (no es seguridad real).
+  // Cualquiera con conocimientos básicos puede ver este código y la clave.
+  // No publiques aquí información realmente sensible.
+  const CLAVE_CORRECTA = "central2026"; // cámbiala por la que quieras usar
+
+  if (sessionStorage.getItem("jefatura_ok") === "1") {
+    mostrarContenido();
+  }
+
+  function verificarClave() {
+    const intento = document.getElementById("clave").value;
+    if (intento === CLAVE_CORRECTA) {
+      sessionStorage.setItem("jefatura_ok", "1");
+      mostrarContenido();
+    } else {
+      document.getElementById("gate-error").classList.add("show");
+    }
+  }
+
+  function mostrarContenido() {
+    document.getElementById("gate").style.display = "none";
+    document.getElementById("jefatura-content").classList.add("show");
+  }
+
+  document.getElementById("clave").addEventListener("keydown", (e) => {
+    if (e.key === "Enter") verificarClave();
+  });
+</script>
+</body>
+</html>
